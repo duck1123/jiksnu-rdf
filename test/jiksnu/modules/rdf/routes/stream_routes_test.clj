@@ -1,10 +1,7 @@
 (ns jiksnu.modules.rdf.routes.stream-routes-test
-  (:use [ciste.formats :only [format-as]]
-        [clj-factory.core :only [factory fseq]]
-        [jiksnu.test-helper :only [check context future-context test-environment-fixture]]
-        [jiksnu.routes-helper :only [as-user response-for]]
-        [midje.sweet :only [=>]])
-  (:require [clojure.tools.logging :as log]
+  (:require [ciste.formats :refer [format-as]]
+            [clj-factory.core :refer [factory fseq]]
+            [clojure.tools.logging :as log]
             [clojurewerkz.support.http.statuses :as status]
             [jiksnu.actions.auth-actions :as actions.auth]
             [jiksnu.actions.user-actions :as actions.user]
@@ -14,7 +11,9 @@
             [jiksnu.model.activity :as model.activity]
             [jiksnu.model.subscription :as model.subscription]
             [jiksnu.model.user :as model.user]
-            jiksnu.modules.web.views.stream-views
+            [jiksnu.test-helper :refer [check context future-context test-environment-fixture]]
+            [jiksnu.routes-helper :refer [as-user response-for]]
+            [midje.sweet :refer [=>]]
             [ring.mock.request :as req]))
 
 (test-environment-fixture
@@ -30,11 +29,11 @@
          (-> (req/request :get "/api/statuses/public_timeline.n3")
              response-for) =>
              (check [response]
-               response => map?
-               (:status response) => status/success?
-               ;; TODO: parse and check model
-               (let [body (:body response)]
-                 body => string?)))
+                    response => map?
+                    (:status response) => status/success?
+                    ;; TODO: parse and check model
+                    (let [body (:body response)]
+                      body => string?)))
        ))
    )
 
@@ -48,8 +47,8 @@
        (-> (req/request :get (format "/api/statuses/user_timeline/%s.n3" (:_id user)))
            (as-user user) response-for)) =>
            (check [response]
-             response => map?
-             (:status response) => status/success?
-             (:body response) => string?))
+                  response => map?
+                  (:status response) => status/success?
+                  (:body response) => string?))
    )
  )

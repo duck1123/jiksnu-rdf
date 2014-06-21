@@ -5,7 +5,7 @@
         [ciste.filters :only [filter-action]]
         [ciste.views :only [apply-view]]
         [clj-factory.core :only [factory]]
-        [jiksnu.test-helper :only [check context future-context hiccup->doc
+        [jiksnu.test-helper :only [check context future-context
                                    test-environment-fixture]]
         [jiksnu.actions.stream-actions :only [public-timeline user-timeline]]
         [midje.sweet :only [=> contains truthy]])
