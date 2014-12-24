@@ -4,12 +4,10 @@
             [ciste.sections.default :refer [show-section]]
             [clojure.tools.logging :as log]
             [jiksnu.actions.user-actions :as actions.user]
-            [jiksnu.ko :refer [*dynamic*]]
             [jiksnu.model.webfinger :as model.webfinger]
             [jiksnu.model.user :as model.user]
             [jiksnu.namespace :as ns]
-            [plaza.rdf.core :as plaza]
-            [ring.util.response :as response]))
+            [plaza.rdf.core :as plaza]))
 
 (defview #'actions.user/show :n3
   [request user]

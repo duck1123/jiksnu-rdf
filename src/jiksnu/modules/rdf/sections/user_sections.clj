@@ -1,20 +1,19 @@
 (ns jiksnu.modules.rdf.sections.user-sections
-  (:use  [ciste.config :only [config]]
-         [ciste.sections :only [defsection]]
-         [ciste.sections.default :only [uri full-uri show-section
-                                        edit-button index-line
-                                        show-section-minimal update-button]]
-         [clojure.core.incubator :only [-?>]]
-         [jiksnu.ko :only [*dynamic*]]
-         [jiksnu.session :only [current-user is-admin?]]
-         [slingshot.slingshot :only [try+]])
-  (:require [clojure.tools.logging :as log]
+  (:require [ciste.config :refer [config]]
+            [ciste.sections :refer [defsection]]
+            [ciste.sections.default :refer [uri full-uri show-section
+                                            edit-button index-line
+                                            show-section-minimal update-button]]
+            [clojure.core.incubator :refer [-?>]]
+            [clojure.tools.logging :as log]
             [jiksnu.namespace :as ns]
             [jiksnu.model.key :as model.key]
             [jiksnu.model.user :as model.user]
             [jiksnu.modules.rdf.util :as rdf]
+            [jiksnu.session :refer [current-user is-admin?]]
             [lamina.trace :as trace]
-            [plaza.rdf.core :as plaza])
+            [plaza.rdf.core :as plaza]
+            [slingshot.slingshot :refer [try+]])
   (:import jiksnu.model.User))
 
 (defsection show-section [User :rdf]
