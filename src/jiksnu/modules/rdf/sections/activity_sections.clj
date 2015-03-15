@@ -1,14 +1,13 @@
 (ns jiksnu.modules.rdf.sections.activity-sections
-  (:use [ciste.sections :only [defsection]]
-        [ciste.sections.default :only [show-section index-block index-line]]
-        [clojure.core.incubator :only [-?>]]
-        [slingshot.slingshot :only [throw+]])
-  (:require [clojure.tools.logging :as log]
+  (:require [ciste.sections :refer [defsection]]
+            [ciste.sections.default :refer [show-section index-block index-line]]
+            [clojure.tools.logging :as log]
             [jiksnu.model.activity :as model.activity]
             [jiksnu.model.user :as model.user]
             [jiksnu.namespace :as ns]
             [jiksnu.modules.rdf.util :as rdf]
-            [plaza.rdf.core :as plaza])
+            [plaza.rdf.core :as plaza]
+            [slingshot.slingshot :refer [throw+]])
   (:import jiksnu.model.Activity))
 
 (defsection index-block [Activity :rdf]
@@ -32,7 +31,7 @@
            [[ns/sioc :has_owner]   user-res]
            [[ns/as   :author]      user-res]
            ]
-          (when-let [lit (-?> published .toDate plaza/date)]
+          (when-let [lit (some-> published .toDate plaza/date)]
             [
              [[ns/dc   :published]   lit]
              ])))

@@ -4,7 +4,6 @@
             [ciste.sections.default :refer [uri full-uri show-section
                                             edit-button index-line
                                             show-section-minimal update-button]]
-            [clojure.core.incubator :refer [-?>]]
             [clojure.tools.logging :as log]
             [jiksnu.namespace :as ns]
             [jiksnu.model.key :as model.key]

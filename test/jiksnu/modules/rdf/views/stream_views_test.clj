@@ -1,20 +1,20 @@
 (ns jiksnu.modules.rdf.views.stream-views-test
-  (:use [ciste.core :only [with-context with-serialization with-format
-                           *serialization* *format*]]
-        [ciste.formats :only [format-as]]
-        [ciste.filters :only [filter-action]]
-        [ciste.views :only [apply-view]]
-        [clj-factory.core :only [factory]]
-        [jiksnu.test-helper :only [check context future-context
-                                   test-environment-fixture]]
-        [jiksnu.actions.stream-actions :only [public-timeline user-timeline]]
-        [midje.sweet :only [=> contains truthy]])
-  (:require [clojure.tools.logging :as log]
+  (:require [ciste.core :refer [with-context with-serialization with-format
+                                *serialization* *format*]]
+            [ciste.formats :refer [format-as]]
+            [ciste.filters :refer [filter-action]]
+            [ciste.views :refer [apply-view]]
+            [clj-factory.core :refer [factory]]
+            [clojure.tools.logging :as log]
+            [jiksnu.actions.stream-actions :refer [public-timeline user-timeline]]
             [jiksnu.actions.user-actions :as actions.user]
             [jiksnu.db :as db]
             [jiksnu.mock :as mock]
             [jiksnu.modules.rdf.util :as rdf]
-            jiksnu.modules.rdf.views.stream-views))
+            jiksnu.modules.rdf.views.stream-views
+            [jiksnu.test-helper :refer [check context future-context
+                                        test-environment-fixture]]
+            [midje.sweet :refer [=> contains truthy]]))
 
 (test-environment-fixture
 
@@ -34,9 +34,9 @@
                      response (filter-action action request)]
                  (apply-view request response) =>
                  (check [response]
-                   response => map?
-                   (let [body (:body response)]
-                     body => (partial every? vector?)))))
+                        response => map?
+                        (let [body (:body response)]
+                          body => (partial every? vector?)))))
              ))
          ))))
 
@@ -56,10 +56,10 @@
                      response (filter-action action request)]
                  (apply-view request response) =>
                  (check [response]
-                   response => map?
-                   (let [body (:body response)]
-                     body => (partial every? vector?)
-                     (let [m (rdf/triples->model body)]
-                       m => truthy)))))))))))
+                        response => map?
+                        (let [body (:body response)]
+                          body => (partial every? vector?)
+                          (let [m (rdf/triples->model body)]
+                            m => truthy)))))))))))
 
  )
