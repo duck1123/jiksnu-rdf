@@ -33,12 +33,8 @@
                      request {:action action}
                      response (filter-action action request)]
                  (apply-view request response) =>
-                 (check [response]
-                        response => map?
-                        (let [body (:body response)]
-                          body => (partial every? vector?)))))
-             ))
-         ))))
+                 (contains
+                  {:body (partial every? vector?)})))))))))
 
  (context "apply-view #'user-timeline"
    (let [action #'user-timeline]

@@ -1,4 +1,4 @@
-(jiksnu.modules.rdf.actions.user-actions)
+(ns jiksnu.modules.rdf.actions.user-actions)
 
 ;; FIXME: This does not work yet
 (defn foaf-query

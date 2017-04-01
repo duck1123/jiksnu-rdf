@@ -10,7 +10,6 @@
             [jiksnu.model.user :as model.user]
             [jiksnu.modules.rdf.util :as rdf]
             [jiksnu.session :refer [current-user is-admin?]]
-            [lamina.trace :as trace]
             [plaza.rdf.core :as plaza]
             [slingshot.slingshot :refer [try+]])
   (:import jiksnu.model.User))
@@ -19,9 +18,7 @@
   [user & _]
   (let [{:keys [url display-name avatar-url first-name
                 last-name username name email]} user
-                mkp (try+ (model.key/get-key-for-user user)
-                          (catch Exception ex
-                            (trace/trace "errors:handled" ex)))
+                mkp (model.key/get-key-for-user user)
                 document-uri (str (full-uri user) ".rdf")
                 user-uri (plaza/rdf-resource (str (full-uri user) "#me"))
                 acct-uri (plaza/rdf-resource (model.user/get-uri user))]
